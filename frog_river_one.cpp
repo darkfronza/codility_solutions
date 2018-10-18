@@ -12,20 +12,16 @@ int solution(int X, vector<int> &A)
     }
 
     std::set<int> jumps; // set with all required jumps, when we find X and this set is empty, frog can cross the river
-    for (int i = 1; i < X; ++i) {
+    for (int i = 1; i <= X; ++i) {
         jumps.insert(i);
     }
 
     for (std::size_t i = 0; i < A.size(); ++i) {
-        int leave = A[i];
-        if (leave == X) {
+        auto element = jumps.find(A[i]);
+        if (element != jumps.end()) {
+            jumps.erase(element);
             if (jumps.empty()) {
                 return i;
-            }
-        } else {
-            auto element = jumps.find(leave);
-            if (element != jumps.end()) {
-                jumps.erase(element);
             }
         }
     }
